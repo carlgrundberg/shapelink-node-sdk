@@ -3,7 +3,7 @@ Shapelink API
 
 !Not ready for use!
 
-Node client for the [Everysport API](http://developer.shapelink.com/index.php/Main_Page).
+Node client for the [Shapelink API](http://developer.shapelink.com/index.php/Main_Page).
 
 ## Install
 
