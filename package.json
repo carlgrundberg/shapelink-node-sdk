@@ -1,0 +1,25 @@
+{
+  "name": "shapelink-node-sdk",
+  "version": "1.0.0-beta1",
+  "description": "Node client for the Shapelink API",
+  "main": "shapelink",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/carlgrundberg/shapelink-node-sdk.git"
+  },
+  "keywords": [
+    "Shapelink"
+  ],
+  "homepage": "http://developer.shapelink.com/index.php/Main_Page",
+  "author": {
+    "name": "Carl Grundberg",
+    "email": "carl.grundberg@menmo.se"
+  },
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/carlgrundberg/shapelink-node-sdk/issues"
+  },
+  "engines": {
+    "node": "*"
+  }
+}
