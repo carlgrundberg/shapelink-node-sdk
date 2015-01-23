@@ -6,11 +6,16 @@ var http = require('http');
 var url = require('url');
 var qs = require('querystring');
 var crypto = require('crypto');
+var sorto = require('sorto');
+
+// API Modules
+var auth = require('./auth');
+var diary = require('./diary');
 
 var options = {
     host: 'api.shapelink.com',
     port: 80,
-    base: '/',
+    base: '',
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
@@ -93,13 +98,15 @@ exports.Shapelink = (function() {
     Shapelink.prototype.signedCall = function(url, params, onsuccess, onerror) {
         // Generate signature
         params.apikey = this.apiKey;
-        params.sort();
+        params = sorto.bykey(params);
 
         var sig = qs.stringify(params);
 
         sig += this.secret;
 
         params.sig = crypto.createHash('md5').update(sig.toLowerCase()).digest('hex');
+
+
 
         return this.call(url, params, onsuccess, onerror);
     };
@@ -115,7 +122,11 @@ exports.Shapelink = (function() {
     };
 
     Shapelink.prototype.auth = function() {
-        return require('./auth')(this);
+        return auth(this);
+    };
+
+    Shapelink.prototype.diary = function() {
+        return diary(this);
     };
 
     return Shapelink;
