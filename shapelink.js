@@ -4,13 +4,14 @@
 
 var http = require('http');
 var url = require('url');
-var qs = require('querystring');
 var crypto = require('crypto');
 var sorto = require('sorto');
+var reduce = require('object.reduce');
 
 // API Modules
 var auth = require('./auth');
 var diary = require('./diary');
+var statistics = require('./statistics');
 
 var options = {
     host: 'api.shapelink.com',
@@ -24,10 +25,11 @@ var options = {
 };
 
 exports.Shapelink = (function() {
-    function Shapelink(apiKey, secret, debug) {
+    function Shapelink(apiKey, secret, culture, debug) {
         this.apiKey = apiKey;
         this.secret = secret;
         this.debug = debug;
+        this.culture = culture;
     }
 
     Shapelink.prototype.call = function(uri, params, onsuccess, onerror) {
@@ -98,15 +100,15 @@ exports.Shapelink = (function() {
     Shapelink.prototype.signedCall = function(url, params, onsuccess, onerror) {
         // Generate signature
         params.apikey = this.apiKey;
-        params = sorto.bykey(params);
 
-        var sig = qs.stringify(params);
+        var paramsSorted = sorto.bykey(params);
 
-        sig += this.secret;
+        var sig = reduce(paramsSorted, function (acc, value, key, obj) {
+            acc += sorto.k(value) + '=' + sorto.v(value);
+            return acc;
+        }, '');
 
-        params.sig = crypto.createHash('md5').update(sig.toLowerCase()).digest('hex');
-
-
+        params.sig = crypto.createHash('md5').update(sig.toLowerCase() + this.secret).digest('hex');
 
         return this.call(url, params, onsuccess, onerror);
     };
@@ -127,6 +129,10 @@ exports.Shapelink = (function() {
 
     Shapelink.prototype.diary = function() {
         return diary(this);
+    };
+
+    Shapelink.prototype.statistics = function() {
+        return statistics(this);
     };
 
     return Shapelink;

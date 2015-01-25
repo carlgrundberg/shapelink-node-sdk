@@ -15,5 +15,5 @@ npm install shapelink-node-sdk
 
 ```javascript
 var Shapelink = require('shapelink-node-sdk').Shapelink;
-var shapelink = new Shapelink("YOUR_API_KEY", "YOUR_SECRET", true);
+var shapelink = new Shapelink("YOUR_API_KEY", "YOUR_SECRET", 'sv', true);
 ```

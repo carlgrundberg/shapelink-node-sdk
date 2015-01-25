@@ -23,6 +23,7 @@
     "node": "*"
   },
   "dependencies": {
-    "sorto": "0.0.2"
+    "sorto": "0.0.2",
+    "object.reduce": "^0.1.3"
   }
 }
