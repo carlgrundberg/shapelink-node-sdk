@@ -19,6 +19,7 @@ var shapelink = new Shapelink("YOUR_API_KEY", "YOUR_SECRET", 'sv', true);
 ## Implemented methods
 
 * auth.RequireToken
+* user.Get
 * diary.GetStrengthExercises
 * statistic.GetStrengthExerciseHistory
 

@@ -10,6 +10,7 @@ var reduce = require('object.reduce');
 
 // API Modules
 var auth = require('./auth');
+var user = require('./user');
 var diary = require('./diary');
 var statistics = require('./statistics');
 
@@ -125,6 +126,10 @@ exports.Shapelink = (function() {
 
     Shapelink.prototype.auth = function() {
         return auth(this);
+    };
+
+    Shapelink.prototype.user = function() {
+        return user(this);
     };
 
     Shapelink.prototype.diary = function() {
