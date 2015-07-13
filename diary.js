@@ -12,6 +12,19 @@ module.exports = function(shapelink) {
             };
 
             return shapelink.signedCall(path + '/getStrengthExercises', params, onsuccess, onerror);
+        },
+
+        /**
+         * http://developer.shapelink.com/index.php/API_method:_Diary.GetDay
+         */
+        getDay: function(token, date, onsuccess, onerror) {
+            var params = {
+                user_token: token,
+                culture: shapelink.culture,
+                date: date
+            };
+
+            return shapelink.signedCall(path + '/getDay', params, onsuccess, onerror);
         }
     };
 };

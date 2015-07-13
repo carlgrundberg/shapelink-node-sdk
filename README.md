@@ -21,6 +21,7 @@ var shapelink = new Shapelink("YOUR_API_KEY", "YOUR_SECRET", 'sv', true);
 * auth.RequireToken
 * user.Get
 * diary.GetStrengthExercises
+* diary.GetDay
 * statistic.GetStrengthExerciseHistory
-
+* challenge.GetResults
 Feel free to submit a pull request if you implement other methods.

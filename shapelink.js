@@ -13,6 +13,7 @@ var auth = require('./auth');
 var user = require('./user');
 var diary = require('./diary');
 var statistics = require('./statistics');
+var challenge = require('./challenge');
 
 var options = {
     host: 'api.shapelink.com',
@@ -138,6 +139,10 @@ exports.Shapelink = (function() {
 
     Shapelink.prototype.statistics = function() {
         return statistics(this);
+    };
+
+    Shapelink.prototype.challenge = function() {
+        return challenge(this);
     };
 
     return Shapelink;
