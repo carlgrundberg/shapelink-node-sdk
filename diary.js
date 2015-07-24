@@ -5,26 +5,21 @@ module.exports = function(shapelink) {
         /**
          * http://developer.shapelink.com/index.php/API_method:_Diary.GetStrengthExercises
          */
-        getStrengthExercises: function (token, onsuccess, onerror) {
-            var params = {
-                user_token: token,
-                culture: shapelink.culture
-            };
-
-            return shapelink.signedCall(path + '/getStrengthExercises', params, onsuccess, onerror);
+        getStrengthExercises: function (params) {
+            return shapelink.signedCall(
+                path + '/getStrengthExercises',
+                shapelink.params(params, {}, true)
+            );
         },
 
         /**
          * http://developer.shapelink.com/index.php/API_method:_Diary.GetDay
          */
-        getDay: function(token, date, onsuccess, onerror) {
-            var params = {
-                user_token: token,
-                culture: shapelink.culture,
-                date: date
-            };
-
-            return shapelink.signedCall(path + '/getDay', params, onsuccess, onerror);
+        getDay: function(params) {
+            return shapelink.signedCall(
+                path + '/getDay',
+                shapelink.params(params, {}, true)
+            );
         }
     };
 };

@@ -3,15 +3,13 @@ module.exports = function(shapelink) {
 
     return {
         /**
-         * http://developer.shapelink.com/index.php/API_method:_Diary.GetStrengthExercises
+         * http://developer.shapelink.com/index.php/API_method:_User.Get
          */
-        get: function (token, user_id, onsuccess, onerror) {
-            var params = {
-                user_token: token,
-                user_id: user_id
-            };
-
-            return shapelink.signedCall(path + '/get', params, onsuccess, onerror);
+        get: function (params) {
+            return shapelink.signedCall(
+                path + '/get',
+                params
+            );
         }
     };
 };

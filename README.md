@@ -15,17 +15,18 @@ npm install shapelink-node-sdk
 var Shapelink = require('shapelink-node-sdk').Shapelink;
 var shapelink = new Shapelink("YOUR_API_KEY", "YOUR_SECRET", 'sv', true);
 
-shapelink.diary().getDay(...);
+shapelink.diary.getDay(...).then(successCb, errorCb);
 ```
 
 ## Implemented methods
 
-* auth.RequireToken
-* user.Get
-* diary.GetStrengthExercises
-* diary.GetDay
-* statistic.GetStrengthExerciseHistory
+* auth.requireToken
+* user.get
+* diary.getStrengthExercises
+* diary.getDay
+* statistic.getStrengthExerciseHistory
 * challenge.getChallenge
-* challenge.GetResults
+* challenge.getResults
+* challenge.getUserChallenges
 
 Feel free to submit a pull request if you implement other methods.

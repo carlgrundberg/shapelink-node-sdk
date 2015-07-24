@@ -5,27 +5,31 @@ module.exports = function(shapelink) {
         /**
          * http://developer.shapelink.com/index.php/API_method:_Challenge.GetResults
          */
-        getResults: function (token, challenge_id, limit, offset, onsuccess, onerror) {
-            var params = {
-                user_token: token,
-                challenge_id: challenge_id,
-                limit: limit,
-                offset: offset
-            };
-            return shapelink.signedCall(path + '/getResults', params, onsuccess, onerror);
+        getResults: function (params) {
+            return shapelink.signedCall(
+                path + '/getResults',
+                shapelink.params(params, {}, true)
+            );
         },
 
         /**
          * http://developer.shapelink.com/index.php/API_method:_Challenge.GetChallenge
          */
-        getChallenge: function(token, challenge_id, onsuccess, onerror) {
-            var params = {
-                user_token: token,
-                challenge_id: challenge_id,
-                culture: shapelink.culture
-            };
+        getChallenge: function(params) {
+            return shapelink.signedCall(
+                path + '/getChallenge',
+                shapelink.params(params, {}, true)
+            );
+        },
 
-            return shapelink.signedCall(path + '/getChallenge', params, onsuccess, onerror);
+        /**
+         * http://developer.shapelink.com/index.php/API_method:_Challenge.GetUserChallenges
+         */
+        getUserChallenges: function(params) {
+            return shapelink.signedCall(
+                path + '/getUserChallenges',
+                shapelink.params(params, {}, true)
+            );
         }
     };
 };

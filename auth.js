@@ -4,13 +4,11 @@ module.exports = function(shapelink) {
         /**
          * http://developer.shapelink.com/index.php/API_method:_Auth.RequireToken
          */
-        requireToken: function (username, password, onsuccess, onerror) {
-            var params = {
-                username: username,
-                password: password
-            };
-
-            return shapelink.call(path + '/requiretoken', params, onsuccess, onerror);
+        requireToken: function (params) {
+            return shapelink.call(
+                path + '/requiretoken',
+                params
+            );
         }
     };
 };

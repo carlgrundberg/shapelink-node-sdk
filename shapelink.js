@@ -7,6 +7,8 @@ var url = require('url');
 var crypto = require('crypto');
 var sorto = require('sorto');
 var reduce = require('object.reduce');
+var _ = require('underscore');
+var q = require('q');
 
 // API Modules
 var auth = require('./auth');
@@ -15,7 +17,7 @@ var diary = require('./diary');
 var statistics = require('./statistics');
 var challenge = require('./challenge');
 
-var options = {
+var defaultOptions = {
     host: 'api.shapelink.com',
     port: 80,
     base: '',
@@ -27,30 +29,39 @@ var options = {
 };
 
 exports.Shapelink = (function() {
-    function Shapelink(apiKey, secret, culture, debug) {
+    function Shapelink(apiKey, secret, culture, options, debug) {
         this.apiKey = apiKey;
         this.secret = secret;
-        this.debug = debug;
         this.culture = culture;
+        this.debug = debug;
+
+        this.options = _.extend(defaultOptions, options);
+
+        this.auth = auth(this);
+        this.user = user(this);
+        this.diary = diary(this);
+        this.statistics = statistics(this);
+        this.challenge = challenge(this);
     }
 
-    Shapelink.prototype.call = function(uri, params, onsuccess, onerror) {
+    Shapelink.prototype.call = function(uri, params) {
         var req,
-            _this = this;
+            deferred = q.defer();
+
         if (params == null) {
             params = {};
         }
         if(!params.apiKey) {
             params.apikey = this.apiKey;
         }
-        options.path = url.format({
-            pathname: options.base + uri,
+        this.options.path = url.format({
+            pathname: this.options.base + uri,
             query: params
         });
         if (this.debug) {
-            console.log("Shapelink: Opening request to http://" + options.host + options.path);
+            console.log("Shapelink: Opening request to http://" + this.options.host + this.options.path);
         }
-        req = http.request(options, function(res) {
+        req = http.request(this.options, function(res) {
             var json;
             res.setEncoding('utf8');
             json = '';
@@ -73,33 +84,20 @@ exports.Shapelink = (function() {
                     };
                 }
                 if (res.statusCode !== 200 || (json.status && json.status == 'error')) {
-                    if (onerror) {
-                        return onerror(json);
-                    } else {
-                        return _this.onerror(json);
-                    }
+                    deferred.reject(new Error(json))
                 } else {
-                    if (onsuccess) {
-                        return onsuccess(json);
-                    }
+                    deferred.resolve(json);
                 }
             });
         });
         req.end();
         req.on('error', function(e) {
-            if (onerror) {
-                return onerror(e);
-            } else {
-                return _this.onerror({
-                    status: 'error',
-                    messages: [ e ]
-                });
-            }
+            deferred.reject(e);
         });
-        return null;
+        return deferred.promise;
     };
 
-    Shapelink.prototype.signedCall = function(url, params, onsuccess, onerror) {
+    Shapelink.prototype.signedCall = function(url, params) {
         // Generate signature
         params.apikey = this.apiKey;
 
@@ -112,37 +110,15 @@ exports.Shapelink = (function() {
 
         params.sig = crypto.createHash('md5').update(sig.toLowerCase() + this.secret).digest('hex');
 
-        return this.call(url, params, onsuccess, onerror);
+        return this.call(url, params);
     };
 
-    Shapelink.prototype.onerror = function(err) {
-        throw {
-            name: 'Error',
-            message: err.messages,
-            toString: function() {
-                return "" + err.name + ": " + err.messages;
-            }
-        };
-    };
-
-    Shapelink.prototype.auth = function() {
-        return auth(this);
-    };
-
-    Shapelink.prototype.user = function() {
-        return user(this);
-    };
-
-    Shapelink.prototype.diary = function() {
-        return diary(this);
-    };
-
-    Shapelink.prototype.statistics = function() {
-        return statistics(this);
-    };
-
-    Shapelink.prototype.challenge = function() {
-        return challenge(this);
+    Shapelink.prototype.params = function(params, defaultParams, withCulture) {
+        params = _.extend(defaultParams, params);
+        if(withCulture) {
+            params.culture = this.culture;
+        }
+        return params;
     };
 
     return Shapelink;
