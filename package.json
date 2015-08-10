@@ -1,6 +1,6 @@
 {
   "name": "shapelink-node-sdk",
-  "version": "1.0.0-beta1",
+  "version": "1.0.0",
   "description": "Node client for the Shapelink API",
   "main": "shapelink",
   "repository": {
