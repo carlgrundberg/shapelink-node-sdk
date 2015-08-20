@@ -1,5 +1,5 @@
 {
-  "name": "shapelink-node-sdk",
+  "name": "shapelink",
   "version": "1.0.0",
   "description": "Node client for the Shapelink API",
   "main": "shapelink",

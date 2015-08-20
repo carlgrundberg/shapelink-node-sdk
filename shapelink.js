@@ -11,11 +11,11 @@ var _ = require('underscore');
 var q = require('q');
 
 // API Modules
-var auth = require('./auth');
-var user = require('./user');
-var diary = require('./diary');
-var statistics = require('./statistics');
-var challenge = require('./challenge');
+var auth = require('./api/auth');
+var user = require('./api/user');
+var diary = require('./api/diary');
+var statistics = require('./api/statistics');
+var challenge = require('./api/challenge');
 
 var defaultOptions = {
     host: 'api.shapelink.com',
