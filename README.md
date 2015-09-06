@@ -6,13 +6,13 @@ Node client for the [Shapelink API](http://developer.shapelink.com/index.php/Mai
 ## Install
 
 ```javascript
-npm install shapelink-node-sdk
+npm install shapelink
 ```
 
 ## Usage
 
 ```javascript
-var Shapelink = require('shapelink-node-sdk').Shapelink;
+var Shapelink = require('shapelink').Shapelink;
 var shapelink = new Shapelink("YOUR_API_KEY", "YOUR_SECRET", 'sv', true);
 
 shapelink.diary.getDay(...).then(successCb, errorCb);
