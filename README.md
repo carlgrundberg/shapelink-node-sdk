@@ -22,8 +22,10 @@ shapelink.diary.getDay(...).then(successCb, errorCb);
 
 * auth.requireToken
 * user.get
+* user.getResources
 * diary.getStrengthExercises
 * diary.getDay
+* diary.notations (v2)
 * statistic.getStrengthExerciseHistory
 * challenge.getChallenge
 * challenge.getResults

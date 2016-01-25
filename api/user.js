@@ -10,6 +10,16 @@ module.exports = function(shapelink) {
                 path + '/get',
                 params
             );
+        },
+
+        /**
+         * http://developer.shapelink.com/index.php/API_method:_User.GetResources
+         */
+        getResources: function(params) {
+            return shapelink.signedCall(
+                path + '/getResources',
+                shapelink.params(params, {}, true)
+            );
         }
     };
 };
