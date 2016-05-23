@@ -20,13 +20,6 @@ module.exports = function(shapelink) {
                 path + '/getDay',
                 shapelink.params(params, {}, true)
             );
-        },
-
-        notations: function(params) {
-            return shapelink.signedCall(
-                '/v2/diarynotation',
-                shapelink.params(params, {}, false)
-            );
         }
     };
 };

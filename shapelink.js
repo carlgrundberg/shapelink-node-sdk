@@ -17,6 +17,10 @@ var diary = require('./api/diary');
 var statistics = require('./api/statistics');
 var challenge = require('./api/challenge');
 
+// V2 methods
+var workout = require('./api/v2/workout');
+var diarynotation = require('./api/v2/diarynotation');
+
 var defaultOptions = {
     host: 'api.shapelink.com',
     port: 80,
@@ -42,6 +46,9 @@ exports.Shapelink = (function() {
         this.diary = diary(this);
         this.statistics = statistics(this);
         this.challenge = challenge(this);
+        
+        this.workout = workout(this);
+        this.diarynotation = diarynotation(this).diarynotation;
     }
 
     Shapelink.prototype.call = function(uri, params) {
